@@ -22,3 +22,23 @@ The Worker constructs a new URL by replacing:
 - `port` with `443`
 
 This effectively instructs the Worker to forward traffic to the Tunnel’s public edge hostname.
+
+### 3. Header normalization
+
+The Worker clones the original request headers and explicitly sets:
+
+- Host: `<your-tunnel-host>`
+
+This ensures the tunneled service receives the correct virtual host header as if the request was sent directly to the tunnel.
+
+### 4. Transparent forwarding
+The Worker calls `fetch()` with:
+
+- Original HTTP method
+- Rewritten URL
+- Cloned headers
+- Original request body
+
+The response from the tunneled service is returned directly to the client without modification.
+
+
