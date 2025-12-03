@@ -41,4 +41,23 @@ The Worker calls `fetch()` with:
 
 The response from the tunneled service is returned directly to the client without modification.
 
+## Usage Scenarios
+- Exposing a private service securely
 
+You may have a backend API, internal dashboard, or dev server running privately. A Cloudflare Tunnel exposes it without opening firewall ports. This Worker provides a clean public domain in front of that tunnel.
+
+- Normalizing or masking endpoint URLs
+
+You might not want to expose the long Cloudflare Tunnel hostname. The Worker becomes your branded, stable entrypoint.
+
+- Adding future logic
+
+Because the Worker sits as a programmable layer in front of the tunnel, you can later add:
+
+  - API key validation
+  - CORS handling
+  - Logging
+  - Access control
+  - Response transformation
+
+Acts as a minimal reverse proxy foundation.
